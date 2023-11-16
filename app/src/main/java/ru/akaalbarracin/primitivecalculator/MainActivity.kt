@@ -159,11 +159,13 @@ class MainActivity : AppCompatActivity() {
                     lastChar == charDiv ||
                     lastChar == '('
                 ) {
-                    body.text = "$body.text("
+                    body.text = "${body.text}("
+                } else {
+                    body.text = "${body.text})"
+                    if (operationCount > 0) result.text = makeResult()
                 }
-            } else {
-                body.text = "$body.text)"
-                if (operationCount > 0) result.text = makeResult()
+            }else{
+                body.text = "${body.text}("
             }
         }
 

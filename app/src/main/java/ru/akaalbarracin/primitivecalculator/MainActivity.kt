@@ -1,5 +1,6 @@
 package ru.akaalbarracin.primitivecalculator
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,168 +12,163 @@ import net.objecthunter.exp4j.ExpressionBuilder
 class MainActivity : AppCompatActivity() {
 
 
+    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val maintext = findViewById<TextView>(R.id.maintext)
         maintext.text = "Primitive calculator by Albarracin"
         val charDiv = '/'
-        val result = findViewById<TextView>(R.id.resultTextView)
-        val body = findViewById<TextView>(R.id.bodyTextView)
+        val textMap = mapOf<String, TextView>(
+            "result" to findViewById(R.id.resultTextView), "body" to findViewById(R.id.bodyTextView)
+        )
 
-
-//        MAP TO USE
-        val buttonNumber0 = findViewById<Button>(R.id.buttonNumber0)
-        val buttonNumber1 = findViewById<Button>(R.id.buttonNumber1)
-        val buttonNumber2 = findViewById<Button>(R.id.buttonNumber2)
-        val buttonNumber3 = findViewById<Button>(R.id.buttonNumber3)
-        val buttonNumber4 = findViewById<Button>(R.id.buttonNumber4)
-        val buttonNumber5 = findViewById<Button>(R.id.buttonNumber5)
-        val buttonNumber6 = findViewById<Button>(R.id.buttonNumber6)
-        val buttonNumber7 = findViewById<Button>(R.id.buttonNumber7)
-        val buttonNumber8 = findViewById<Button>(R.id.buttonNumber8)
-        val buttonNumber9 = findViewById<Button>(R.id.buttonNumber9)
-
-        val buttonComma = findViewById<Button>(R.id.buttonComma)
-        val buttonDelete = findViewById<Button>(R.id.buttonDelete)
-        val buttonEquals = findViewById<Button>(R.id.buttonEquals)
-        val buttonPlus = findViewById<Button>(R.id.buttonPlus)
-        val buttonMinus = findViewById<Button>(R.id.buttonMinus)
-        val buttonCdot = findViewById<Button>(R.id.buttonCdot)
-        val buttonDiv = findViewById<Button>(R.id.buttonDiv)
-        val buttonMod = findViewById<Button>(R.id.buttonMod)
-        val buttonSkobki = findViewById<Button>(R.id.buttonSkobki)
-        val buttonClear = findViewById<Button>(R.id.buttonClear)
+        val buttonMap = mapOf<String, Button>(
+            "buttonNumber0" to findViewById(R.id.buttonNumber0),
+            "buttonNumber1" to findViewById(R.id.buttonNumber1),
+            "buttonNumber0" to findViewById(R.id.buttonNumber0),
+            "buttonNumber1" to findViewById(R.id.buttonNumber1),
+            "buttonNumber2" to findViewById(R.id.buttonNumber2),
+            "buttonNumber3" to findViewById(R.id.buttonNumber3),
+            "buttonNumber4" to findViewById(R.id.buttonNumber4),
+            "buttonNumber5" to findViewById(R.id.buttonNumber5),
+            "buttonNumber6" to findViewById(R.id.buttonNumber6),
+            "buttonNumber7" to findViewById(R.id.buttonNumber7),
+            "buttonNumber8" to findViewById(R.id.buttonNumber8),
+            "buttonNumber9" to findViewById(R.id.buttonNumber9),
+            "buttonComma" to findViewById(R.id.buttonComma),
+            "buttonDelete" to findViewById(R.id.buttonDelete),
+            "buttonEquals" to findViewById(R.id.buttonEquals),
+            "buttonPlus" to findViewById(R.id.buttonPlus),
+            "buttonMinus" to findViewById(R.id.buttonMinus),
+            "buttonCdot" to findViewById(R.id.buttonCdot),
+            "buttonDiv" to findViewById(R.id.buttonDiv),
+            "buttonMod" to findViewById(R.id.buttonMod),
+            "buttonSkobki" to findViewById(R.id.buttonSkobki),
+            "buttonClear" to findViewById(R.id.buttonClear),
+        )
         var operationCount: Short = 0
 
         fun makeResult(): String {
-            val error = Toast.makeText(this, "result is infinity or incorrect", Toast.LENGTH_LONG)
             // using library exp4j (take string get result) (it's say me Tigran)
-            if (body.text != "") {
+            if (textMap["body"]?.text != "") {
                 try {
                     val localResult: Double =
-                        ExpressionBuilder(body.text.toString()).build().evaluate()
+                        ExpressionBuilder(textMap["body"]?.text.toString()).build().evaluate()
                     if (localResult.toInt().toDouble() == localResult) {
-//                        result.text = localResult.toInt().toString()
                         return localResult.toInt().toString()
 
                     } else {
-//                        result.text = localResult.toString()
                         return localResult.toString()
                     }
                 } catch (e: Exception) {
-//                    error.show()
                     return ""
                 }
             }
             return ""
         }
 
-        buttonNumber0.setOnClickListener {
-            body.text = "${body.text}0"
-            if (operationCount > 0) result.text = makeResult()
+        buttonMap["buttonNumber0"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}0"
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonNumber1.setOnClickListener {
-            body.text = "${body.text}1"
-            if (operationCount > 0) result.text = makeResult()
+        buttonMap["buttonNumber1"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}1"
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonNumber2.setOnClickListener {
-            body.text = "${body.text}2"
-            if (operationCount > 0) result.text = makeResult()
+        buttonMap["buttonNumber2"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}2"
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonNumber3.setOnClickListener {
-            body.text = "${body.text}3"
-            if (operationCount > 0) result.text = makeResult()
+        buttonMap["buttonNumber3"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}3"
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonNumber4.setOnClickListener {
-            body.text = "${body.text}4"
-            if (operationCount > 0) result.text = makeResult()
+        buttonMap["buttonNumber4"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}4"
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonNumber5.setOnClickListener {
-            body.text = "${body.text}5"
-            if (operationCount > 0) result.text = makeResult()
+        buttonMap["buttonNumber5"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}5"
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonNumber6.setOnClickListener {
-            body.text = "${body.text}6"
-            if (operationCount > 0) result.text = makeResult()
+        buttonMap["buttonNumber6"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}6"
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonNumber7.setOnClickListener {
-            body.text = "${body.text}7"
-            if (operationCount > 0) result.text = makeResult()
+        buttonMap["buttonNumber7"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}7"
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonNumber8.setOnClickListener {
-            body.text = "${body.text}8"
-            if (operationCount > 0) result.text = makeResult()
+        buttonMap["buttonNumber8"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}8"
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonNumber9.setOnClickListener {
-            body.text = "${body.text}9"
-            if (operationCount > 0) result.text = makeResult()
+        buttonMap["buttonNumber9"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}9"
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonDelete.setOnClickListener {
-            if (body.text.toString().length > 0) {
-                val lastChar = body.text.substring(
-                    body.text.toString().lastIndex,
-                    body.text.toString().lastIndex + 1
+        buttonMap["buttonDelete"]?.setOnClickListener {
+            if (textMap["body"]?.text.toString().length > 0) {
+                val lastChar = textMap["body"]?.text?.substring(
+                    textMap["body"]?.text.toString().lastIndex,
+                    textMap["body"]?.text.toString().lastIndex + 1
                 )
                 if (lastChar == '+'.toString() || lastChar == '-'.toString() || lastChar == '*'.toString() || lastChar == charDiv.toString()) {
-                    operationCount--
+                    operationCount = (operationCount - 1).toShort()
                 }
-                body.text = body.text.toString().substring(0, body.text.toString().lastIndex)
+                textMap["body"]?.text = textMap["body"]?.text.toString()
+                    .substring(0, textMap["body"]?.text.toString().lastIndex)
             }
-            if (operationCount > 0) result.text = makeResult()
+            if (operationCount > 0) textMap["result"]?.text = makeResult()
         }
-        buttonClear.setOnClickListener {
-            body.text = ""
-            result.text = ""
+        buttonMap["buttonClear"]?.setOnClickListener {
+            textMap["body"]?.text = ""
+            textMap["result"]?.text = ""
         }
-        buttonComma.setOnClickListener {
-            body.text = "${body.text},"
+        buttonMap["buttonComma"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text},"
         }
-        buttonPlus.setOnClickListener {
-            body.text = "${body.text}+"
+        buttonMap["buttonPlus"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}+"
             operationCount++
         }
-        buttonMinus.setOnClickListener {
-            body.text = "${body.text}-"
+        buttonMap["buttonMinus"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}-"
             operationCount++
         }
-        buttonCdot.setOnClickListener {
-            body.text = "${body.text}*"
+        buttonMap["buttonCdot"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}*"
             operationCount++
         }
-        buttonDiv.setOnClickListener {
-            body.text = "${body.text}$charDiv"
+        buttonMap["buttonDiv"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}$charDiv"
             operationCount++
         }
-        buttonMod.setOnClickListener {
-            body.text = "${body.text}%"
+        buttonMap["buttonMod"]?.setOnClickListener {
+            textMap["body"]?.text = "${textMap["body"]?.text}%"
             operationCount++
         }
-        buttonSkobki.setOnClickListener {
+        buttonMap["buttonSkobki"]?.setOnClickListener {
 
-            if (body.text.toString().length > 0) {
-                val ArrayOfText = body.text.toString().toCharArray().toTypedArray()
+            if (textMap["body"]?.text.toString().length > 0) {
+                val ArrayOfText = textMap["body"]?.text.toString().toCharArray().toTypedArray()
                 val lastChar = ArrayOfText[ArrayOfText.lastIndex]
-                if (lastChar == '+' ||
-                    lastChar == '-' ||
-                    lastChar == '*' ||
-                    lastChar == charDiv ||
-                    lastChar == '('
-                ) {
-                    body.text = "${body.text}("
+                if (lastChar == '+' || lastChar == '-' || lastChar == '*' || lastChar == charDiv || lastChar == '(') {
+                    textMap["body"]?.text = "${textMap["body"]?.text}("
                 } else {
-                    body.text = "${body.text})"
-                    if (operationCount > 0) result.text = makeResult()
+                    textMap["body"]?.text = "${textMap["body"]?.text})"
+                    if (operationCount > 0) textMap["result"]?.text = makeResult()
                 }
-            }else{
-                body.text = "${body.text}("
+            } else {
+                textMap["body"]?.text = "${textMap["body"]?.text}("
             }
         }
 
-        buttonEquals.setOnClickListener {
-            if (result.text != "") {
-                body.text = result.text
-                result.text = ""
+        buttonMap["buttonEquals"]?.setOnClickListener {
+            if (textMap["result"]?.text != "") {
+                textMap["body"]?.text = textMap["result"]?.text
+                textMap["result"]?.text = ""
             }
         }
 

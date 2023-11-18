@@ -3,6 +3,7 @@ package ru.akaalbarracin.primitivecalculator
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -51,15 +52,16 @@ class MainActivity : AppCompatActivity() {
 
         fun makeResult(): String {
             // using library exp4j (take string get result) (it's say me Tigran)
-            if (textMap["body"]?.text != "") {
+            val primer = textMap["body"]?.text?.toString() ?: ""
+            if (primer != "") {
                 try {
                     val localResult: Double =
-                        ExpressionBuilder(textMap["body"]?.text.toString()).build().evaluate()
+                        ExpressionBuilder(primer.replace(',', '.')).build().evaluate()
                     if (localResult.toInt().toDouble() == localResult) {
                         return localResult.toInt().toString()
 
                     } else {
-                        return localResult.toString()
+                        return localResult.toString().replace('.', ',')
                     }
                 } catch (e: Exception) {
                     return ""
@@ -171,6 +173,7 @@ class MainActivity : AppCompatActivity() {
                 textMap["result"]?.text = ""
             }
         }
+
 
     }
 }
